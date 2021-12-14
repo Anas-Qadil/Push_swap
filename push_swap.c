@@ -6,42 +6,73 @@
 /*   By: aqadil <aqadil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 01:11:18 by aqadil            #+#    #+#             */
-/*   Updated: 2021/12/10 16:15:57 by aqadil           ###   ########.fr       */
+/*   Updated: 2021/12/14 02:11:59 by aqadil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "push_swap.h"
 
-int push_swap()
+int push_swap(t_stack_a **head, t_stack_a **headb)
 {
-    return (1);
+	t_stack_a   *temp;
+	t_stack_a   *node;
+
+	temp = (*head);
+	if (stack_size(head) == 3)
+	{
+		sort_three(head);
+		return (1);
+	}
+	if (stack_size(head) == 2)
+	{
+		if ((*head)->x > (*head)->next->x)
+		{
+			sa(head);
+			write(1, "sa\n", 3);
+		}
+		return (1);
+	}
+	if (stack_size(head) == 4)
+	{
+		sort_four(head, headb);
+		return (1);
+	}
+	if (stack_size(head) == 5)
+		sort_five(head, headb);
+	else
+		return (1);
 }
 
 int main(int argc, char **argv)
 {
-    t_stack_a **head, *node1, *node2, *node3, *node4, *node5, *node6;
-    head = &node1;
-    node1 = ft_lstnew_a(8);
-    node2 = ft_lstnew_a(5);
-    node3 = ft_lstnew_a(6);
-    node4 = ft_lstnew_a(3);
-    node5 = ft_lstnew_a(1);
-    node6 = ft_lstnew_a(2);
+	int i = 2;
+	t_stack_a	**head = malloc(20000);
+	t_stack_a	**headb = malloc(20000);
+	t_stack_a	*node;
+	t_stack_a	*nodeb, *nodeb2, *nodeb3;
 
-    node1->next = node2;
-    node2->next = node3;
-    node3->next = node4;
-    node4->next = node5;
-    node5->next = node6;
+	if (argc < 2)
+		return (-1);
+	node = ft_lstnew_a(ft_atoi(argv[1]));
+	head = &node;
 
-    // stack b
-
-    t_stack_a **headb;
-    *headb = NULL;
-    pa_pb(headb, head);
-    while ((*headb))
-    {
-        printf("%d\n", (*head)->x);
-        (*head) = (*head)->next;
-    }
+	while (i < argc )
+	{
+		build_stack(head, ft_atoi(argv[i]));
+		i++;
+	}
+	
+	push_swap(head, headb);
+	
+	while (head && (*head))
+	{
+		printf("%d\n", (*head)->x);
+		(*head) = (*head)->next;
+	}
+	printf("list b\n");
+	while (headb && (*headb))
+	{
+		printf("%d\n", (*headb)->x);
+		(*headb) = (*headb)->next;
+	}
 }

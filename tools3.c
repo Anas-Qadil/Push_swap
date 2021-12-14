@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sa_sb.c                                            :+:      :+:    :+:   */
+/*   tools3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aqadil <aqadil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/09 15:13:02 by aqadil            #+#    #+#             */
-/*   Updated: 2021/12/13 15:08:26 by aqadil           ###   ########.fr       */
+/*   Created: 2021/12/14 02:16:29 by aqadil            #+#    #+#             */
+/*   Updated: 2021/12/14 02:18:04 by aqadil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-// hado kaysegmentiw lakan stack = NULL u should pay attention to that
-
-void    sa(t_stack_a **stack)
+int get_min(t_stack_a **head)
 {
-	t_stack_a	*node1;
-	t_stack_a	*node2;
+    int min;
+    t_stack_a   *temp;
 
-	node1 = (*stack);
-	node2 = (*stack)->next;
-	node1->next = node2->next;
-	node2->next = node1;
-	(*stack) = node2;
+    temp = (*head);
+    min = temp->x;
+    while (temp)
+    {
+        if (temp->x < min)
+            min = temp->x;
+        temp = temp->next;
+    }
+    return (min);
 }

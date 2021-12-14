@@ -6,7 +6,7 @@
 /*   By: aqadil <aqadil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 14:35:58 by aqadil            #+#    #+#             */
-/*   Updated: 2021/12/10 14:46:46 by aqadil           ###   ########.fr       */
+/*   Updated: 2021/12/13 15:15:53 by aqadil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void    rra_rrb(t_stack_a **stack)
     b_node->next = NULL;
     elem->next = save;
     (*stack) = elem;
+    
 }
 
 void    rrr(t_stack_a **stack_a, t_stack_a **stack_b)

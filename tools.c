@@ -6,7 +6,7 @@
 /*   By: aqadil <aqadil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 14:58:42 by aqadil            #+#    #+#             */
-/*   Updated: 2021/12/10 15:10:04 by aqadil           ###   ########.fr       */
+/*   Updated: 2021/12/14 02:16:13 by aqadil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,40 +26,29 @@ t_stack_a	*ft_lstnew_a(int x)
 	node->next = NULL;
 	return (node);
 }
-// stack b
 
-// function i mig
-void	ft_lstadd_back(t_stack_a **lst, t_stack_a *new)
+int	ft_atoi(const char *str)
 {
-	t_stack_a	*temp;
+	int	i;
+	int	sign;
+	int	result;
 
-	temp = *lst;
-	if (temp == NULL)
-		*lst = new;
-	else
+	i = 0;
+	sign = 1;
+	result = 0;
+	while (str[i] == ' ' || str[i] == '\n' || str[i] == '\t' || str[i] == '\r'
+		|| str[i] == '\f' || str[i] == '\v')
+		i++;
+	if (str[i] == '-')
+		sign = -1;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	while (str[i] && str[i] >= '0' && str[i] <= '9')
 	{
-		while (temp->next != NULL)
-			temp = temp->next;
-		temp->next = new;
+		result = (result * 10) + (str[i] - 48);
+		i++;
 	}
-}
-void	ft_lstadd_front(t_stack_a **lst, t_stack_a *new)
-{
-	new->next = *lst;
-	*lst = new;
+	return (result * sign);
 }
 
-void	ft_lstclear_a(t_stack_a **lst)
-{
-	t_stack_a	*curr_node;
-	t_stack_a	*next_node;
 
-	curr_node = *lst;
-	while (curr_node != NULL)
-	{
-		next_node = curr_node->next;
-		free (curr_node);
-		curr_node = next_node;
-	}
-	*lst = NULL;
-}

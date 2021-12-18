@@ -6,7 +6,7 @@
 /*   By: aqadil <aqadil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 14:58:42 by aqadil            #+#    #+#             */
-/*   Updated: 2021/12/14 02:16:13 by aqadil           ###   ########.fr       */
+/*   Updated: 2021/12/17 15:46:13 by aqadil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,10 @@ int	ft_atoi(const char *str)
 	return (result * sign);
 }
 
+t_stack_a *first_element(t_stack_a **head)
+{
+	t_stack_a	*first;
 
+	first = (*head);
+	return (first);
+}

@@ -6,7 +6,7 @@
 /*   By: aqadil <aqadil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 02:23:53 by aqadil            #+#    #+#             */
-/*   Updated: 2021/12/14 02:18:21 by aqadil           ###   ########.fr       */
+/*   Updated: 2021/12/18 19:58:07 by aqadil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@ typedef struct s_stack_a
     struct s_stack_a *next;
     
 } t_stack_a;
+
+typedef struct s_chunk
+{
+    int a;
+    struct s_chunk *next;
+}   t_chunk;
 
 t_stack_a	*ft_lstnew_a(int x);
 void	ft_lstclear_a(t_stack_a **lst);
@@ -57,9 +63,23 @@ void	sort_five(t_stack_a **head, t_stack_a **headb);
 
 //sorting tools
 int	sorted(t_stack_a **head);
+int	*sort_reference(t_stack_a **head);
 
 // getting list info 
 int get_min(t_stack_a **head);
+int get_second_min(t_stack_a **head);
+t_stack_a *first_element(t_stack_a **head);
+t_stack_a   *get_last_node(t_stack_a **head);
+
+//big sort
+void	sort_hundred(t_stack_a **head, t_stack_a **headb);
+
+//big sort tools
+int *get_three_elements(t_stack_a **head, int index);
+int *big_chunk(t_stack_a **head, int chunk);
+int how_many_chunk(t_stack_a **head);
+int get_pos(t_stack_a **head, int x);
+
 
 #endif
 

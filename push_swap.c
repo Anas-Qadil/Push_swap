@@ -6,7 +6,7 @@
 /*   By: aqadil <aqadil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 01:11:18 by aqadil            #+#    #+#             */
-/*   Updated: 2021/12/18 20:38:45 by aqadil           ###   ########.fr       */
+/*   Updated: 2021/12/19 01:32:25 by aqadil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,20 +65,17 @@ int main(int argc, char **argv)
 		i++;
 	}
 	push_swap(head, headb);
-	printf("\nlist a\n");
-	while (head && (*head))
-	{
-		printf("%d\n", (*head)->x);
-		(*head) = (*head)->next;
-	}
-	printf("list b\n");
+	// printf("\nlist a\n");
+	// while (head && (*head))
+	// {
+	// 	printf("%d\n", (*head)->x);
+	// 	(*head) = (*head)->next;
+	// }
+	// printf("list b\n");
 	
-	while (headb && (*headb))
-	{
-		printf("%d\n", (*headb)->x);
-		(*headb) = (*headb)->next;
-	}
+	// while (headb && (*headb))
+	// {
+	// 	printf("%d\n", (*headb)->x);
+	// 	(*headb) = (*headb)->next;
+	// }
 }
-
-// 200 + 200 + 200
-

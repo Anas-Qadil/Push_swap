@@ -6,53 +6,88 @@
 /*   By: aqadil <aqadil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 02:16:29 by aqadil            #+#    #+#             */
-/*   Updated: 2021/12/18 19:18:06 by aqadil           ###   ########.fr       */
+/*   Updated: 2021/12/31 14:49:21 by aqadil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int get_min(t_stack_a **head)
+int	list_size(t_list *l)
 {
-    int min;
-    t_stack_a   *temp;
+	int	i;
 
-    temp = (*head);
-    min = temp->x;
-    while (temp)
-    {
-        if (temp->x < min)
-            min = temp->x;
-        temp = temp->next;
-    }
-    return (min);
+	i = 0;
+	while (l)
+	{
+		i++;
+		l = l->next;
+	}
+	return (i);
 }
 
-int get_second_min(t_stack_a **head)
+t_list	*get_last(t_list *l)
 {
-    int min;
-    t_stack_a   *temp;
-    int second_min;
-    int *sorted_tab;
-
-    sorted_tab = sort_reference(head);
-    second_min = sorted_tab[1];
-    return (second_min);
+	if (l == NULL)
+		return (NULL);
+	while (l->next)
+	{
+		l = l->next;
+	}
+	return (l);
 }
 
-t_stack_a   *get_last_node(t_stack_a **head)
+int	list_contains_value(t_list *l, int value)
 {
-    t_stack_a   *temp;
-
-    temp = (*head);
-    while (temp->next)
-        temp = temp->next;
-    return (temp);
+	while (l)
+	{
+		if (l->value == value)
+			return (1);
+		l = l->next;
+	}
+	return (0);
 }
 
-int tab_size(int *tab)
+int	is_ordered(t_mem *m)
 {
-    int size;
-    size = sizeof(tab) / sizeof(tab[0]);
-    return (size);
+	int		prev;
+	t_list	*l;
+
+	if (m->b)
+		return (0);
+	if (!m->a)
+		return (1);
+	l = m->a;
+	prev = l->value;
+	while (l)
+	{
+		if (prev > l->value)
+			return (0);
+		prev = l->value;
+		l = l->next;
+	}
+	return (1);
+}
+
+t_list	*get_node_from_array(int arr[], t_mem *mem, int elem)
+{
+	int		i;
+	t_list	*temp;
+
+	i = 0;
+	temp = mem->a;
+	while (temp)
+	{
+		if (elem == 0)
+		{
+			if (temp->value == arr[0])
+				return (temp);
+		}
+		else
+		{
+			if (temp->value == arr[1])
+				return (temp);
+		}
+		temp = temp->next;
+	}
+	return (NULL);
 }

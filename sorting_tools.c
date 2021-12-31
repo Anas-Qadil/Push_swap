@@ -6,57 +6,70 @@
 /*   By: aqadil <aqadil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 22:15:24 by aqadil            #+#    #+#             */
-/*   Updated: 2021/12/17 20:30:59 by aqadil           ###   ########.fr       */
+/*   Updated: 2021/12/31 14:47:36 by aqadil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	sorted(t_stack_a **head)
+void	init_resolve(t_mem *mem)
 {
-	t_stack_a	*temp;
-
-	temp = (*head);
-	while (temp)
-	{
-		if (temp->next != NULL && temp->x > temp->next->x)
-			return (0);
-		temp = temp->next;
-	}
-	return (1);
+	mem->big = find_biggest_loop(mem->a, 1);
+	mem->size = list_size(mem->a);
+	mem->group_cnt = ft_max(1, (int)(mem->max / 150.0));
+	mem->group_sz = mem->max / mem->group_cnt;
 }
 
-int	*sort_reference(t_stack_a **head)
+int	distance_to_top(t_list *a, int tag)
 {
-	int	save;
-	t_stack_a *temp;
+	int	i;
 	int	size;
-	int	*result;
-	int i;
 
 	i = 0;
-	size = stack_size(head);
-	result = malloc(sizeof(int) * (size));
-	temp = (*head);
-
-	while(temp)
+	size = list_size(a);
+	while (a)
 	{
-		result[i] = temp->x;
-		temp = temp->next;
+		if (a->index == tag)
+			break ;
+		a = a->next;
 		i++;
 	}
-	i = 0;
-	while (i < size)
+	if (i > size / 2)
+		i -= size;
+	return (i);
+}
+
+int	distance_to_tag(int tag, int size)
+{
+	if (tag >= size / 2)
+		tag -= size;
+	return (tag);
+}
+
+t_list	*closest_in_group(t_list *list, int cur_group, int group_sz)
+{
+	t_list	*closest;
+	t_list	*cur;
+	int		distance;
+	int		cur_dist;
+
+	distance = 8000000;
+	closest = NULL;
+	cur = list;
+	while (cur)
 	{
-		if (result[i] > result[i + 1] && (i != size - 1))
+		if (cur->index <= group_sz * cur_group && !cur->keep)
 		{
-			save = result[i + 1];
-			result[i + 1] = result[i];
-			result[i] = save;
-			i = 0;
+			cur_dist = distance_to_top(list, cur->index);
+			if (ft_abs(cur_dist) < ft_abs(distance))
+			{
+				distance = cur_dist;
+				closest = cur;
+				if (distance == 0)
+					break ;
+			}
 		}
-		else
-			i++;
+		cur = cur->next;
 	}
-	return (result);
+	return (closest);
 }

@@ -6,54 +6,84 @@
 /*   By: aqadil <aqadil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 13:44:08 by aqadil            #+#    #+#             */
-/*   Updated: 2021/12/13 21:25:00 by aqadil           ###   ########.fr       */
+/*   Updated: 2021/12/31 14:50:04 by aqadil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int stack_size(t_stack_a **head)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	t_stack_a   *temp;
-	int i;
+	while (*s1 == *s2)
+	{
+		if (*s1 == 0)
+			return (0);
+		++s1;
+		++s2;
+	}
+	return (*(unsigned char *)s1 - *(unsigned char *)s2);
+}
+
+void	ft_swap_list(t_list **prevnext, t_list *last)
+{
+	t_list	*swap;
+
+	swap = *prevnext;
+	*prevnext = last->next_sort;
+	swap->next_sort = last->next_sort->next_sort;
+	(*prevnext)->next_sort = swap;
+}
+
+void	ft_list_sort(t_list **begin_list)
+{
+	t_list	*last;
+	t_list	*prev;
+
+	prev = NULL;
+	last = *begin_list;
+	while (last && last->next_sort)
+	{
+		if (last->value > last->next_sort->value)
+		{
+			if (prev == NULL)
+				ft_swap_list(begin_list, last);
+			else
+				ft_swap_list(&(prev->next_sort), last);
+			last = *begin_list;
+			prev = NULL;
+		}
+		else
+		{
+			prev = last;
+			last = last->next_sort;
+		}
+	}
+}
+
+void	ft_putstr(char *str)
+{
+	int		i;
+	char	n;
 
 	i = 0;
-	temp = (*head);
-	while (temp)
-	{
+	while (str[i])
 		i++;
-		temp = temp->next;
-	}
-	return (i);
+	n = '\n';
+	write(1, str, i);
+	write(1, &n, 1);
 }
 
-void	pop_front(t_stack_a	**head)
+void	ft_free_list(t_list **list)
 {
-	t_stack_a	*node;
+	t_list	*l;
+	t_list	*next;
 
-	node = (*head);
-	(*head) = (*head)->next;
-	free(node);	
-}
-
-void	pop_last(t_stack_a **head)
-{
-	t_stack_a	*node;
-	
-	if (head == NULL)
-		return ;
-	if ((*head)->next == NULL)
+	l = *list;
+	while (l)
 	{
-		free((*head));
-		*head = NULL;
-		return ;
+		next = l->next;
+		free(l);
+		l = next;
 	}
-	node = (*head);
-	while (node->next->next)
-	{
-		node = node->next;
-	}
-	node->next = NULL;
-	free(node->next);
-	node->next = NULL;
+	*list = NULL;
 }

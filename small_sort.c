@@ -6,134 +6,112 @@
 /*   By: aqadil <aqadil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 13:48:05 by aqadil            #+#    #+#             */
-/*   Updated: 2021/12/17 17:33:33 by aqadil           ###   ########.fr       */
+/*   Updated: 2021/12/30 16:33:04 by aqadil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	sort_three(t_stack_a **head)
+int	has_tag(t_list *list, int tag)
 {
-	t_stack_a	*node1;
-	t_stack_a	*node2;
-	t_stack_a	*node3;
-
-	node1 = (*head);
-	node2 = (*head)->next;
-	node3 = (*head)->next->next;
-	if (node1->x > node2->x && node2->x < node3->x && node1->x < node3->x)
+	while (list)
 	{
-		write(1, "sa\n", 3);
-		sa(head);
+		if (list->index == tag)
+			return (1);
+		list = list->next;
 	}
-	if (node1->x > node2->x && node1->x > node3->x && node2->x > node3->x)
-	{
-		write(1, "sa\n", 3);
-		write(1, "rra\n", 4);
-		sa(head);
-		rra_rrb(head);
-	}
-	if (node1->x > node2->x && node1->x > node3->x && node2->x < node3->x)
-	{
-		write(1, "ra\n", 3);
-		ra_rb(head);
-	}
-	if (node1->x < node2->x && node1->x < node3->x && node2->x > node3->x)
-	{
-		write(1, "sa\n", 3);
-		write(1, "ra\n", 3);
-		sa(head);
-		ra_rb(head);
-	}
-	if (node1->x < node2->x && node1->x > node3->x && node2->x > node3->x)
-	{
-		write(1, "rra\n", 4);
-		rra_rrb(head);
-	}
+	return (0);
 }
 
-void	sort_four(t_stack_a **head, t_stack_a **headb)
+void	sort_three(t_mem *mem)
 {
-	t_stack_a	*first_node;
-	t_stack_a	*last_node;
-	int	min;
-	int check = 0;
+	t_list	*node3;
 
-	min = get_min(head);
-	last_node = get_last_node(head);
-	while (1)
+	node3 = mem->a->next->next;
+	if (mem->a->value > mem->a->next->value
+		&& mem->a->next->value < node3->value && mem->a->value < node3->value)
+		swap_a(mem);
+	if (mem->a->value > mem->a->next->value && mem->a->value > node3->value
+		&& mem->a->next->value > node3->value)
 	{
-		first_node = first_element(head);
-		if (first_node->x == min)
-		{
-			write(1, "pb\n", 3);
-			check = 1;
-			pa_pb(headb, head);
-		}
-		else if (last_node->x == min)
-		{
-			write(1, "rra\n", 4);
-			rra_rrb(head);
-		}
-		else
-		{
-			write(1, "ra\n", 3);
-			ra_rb(head);
-		}
-		if (check == 1)
-			break;	
+		swap_a(mem);
+		rev_rotate_a(mem);
 	}
-	sort_three(head);
-	pa_pb(head, headb);
-	write(1, "pa\n", 3);
+	if (mem->a->value > mem->a->next->value && mem->a->value > node3->value
+		&& mem->a->next->value < node3->value)
+		rotate_a(mem);
+	if (mem->a->value < mem->a->next->value && mem->a->value < node3->value
+		&& mem->a->next->value > node3->value)
+	{
+		swap_a(mem);
+		rotate_a(mem);
+	}
+	if (mem->a->value < mem->a->next->value
+		&& mem->a->value > node3->value && mem->a->next->value > node3->value)
+		rev_rotate_a(mem);
 }
 
-void	sort_five(t_stack_a **head, t_stack_a **headb)
+t_list	*get_first_element(t_mem *mem)
 {
-	int	min;
-	int second_min;
-	t_stack_a *temp;
-	t_stack_a	*first_elem;
-	int size = 5;
+	t_list	*node;
 
-	min = get_min(head);
-	second_min = get_second_min(head);
-	temp = (*head);
-	first_elem = (*head);
+	node = mem->a;
+	return (node);
+}
 
-	while (1)
+t_list	*get_smallest_node(t_mem *mem, int elem)
+{
+	int		arr[5];
+	int		i;
+	t_list	*temp;
+	int		temporary;
+
+	i = 0;
+	temp = mem->a;
+	while (temp)
 	{
-		first_elem = first_element(head);
-		if (first_elem->x == min)
+		arr[i++] = temp->value;
+		temp = temp->next;
+	}
+	i = -1;
+	while (++i < 5)
+	{
+		if (arr[i] > arr[i + 1])
 		{
-			size--;
-			write(1, "pb\n", 3);
-			pa_pb(headb, head);
+			temporary = arr[i];
+			arr[i] = arr[i + 1];
+			arr[i + 1] = temporary;
+			i = -1;
 		}
-		first_elem = first_element(head);
-		if (first_elem->x == second_min)
-		{
-			size--;
-			write(1, "pb\n", 3);
-			pa_pb(headb, head);
-		}
+	}
+	temp = get_node_from_array(arr, mem, elem);
+	return (temp);
+}
+
+void	five_sort(t_mem *mem)
+{
+	t_list	*node1;
+	t_list	*node2;
+	t_list	*temp;
+	int		counter;
+
+	counter = 0;
+	node1 = get_smallest_node(mem, 0);
+	node2 = get_smallest_node(mem, 1);
+	temp = get_first_element(mem);
+	while (temp)
+	{
+		if ((temp == node1 || temp == node2) && ++counter)
+			push_b(mem);
 		else
-		{
-			write(1, "ra\n", 3);
-			ra_rb(head);
-		}
-		if (size == 3)
-			break;
+			rotate_a(mem);
+		if (counter == 2)
+			break ;
+		temp = get_first_element(mem);
 	}
-	
-	sort_three(head);
-	pa_pb(head, headb);
-	write(1, "pa\n", 3);
-	pa_pb(head, headb);
-	write(1, "pa\n", 3);
-	if ((*head)->x > (*head)->next->x)
-	{
-		write(1, "sa\n", 3);
-		sa(head);
-	}
+	sort_three(mem);
+	push_a(mem);
+	push_a(mem);
+	if (mem->a->value > mem->a->next->value)
+		swap_a(mem);
 }

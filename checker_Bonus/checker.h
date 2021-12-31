@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   build.c                                            :+:      :+:    :+:   */
+/*   checker.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aqadil <aqadil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/13 13:00:13 by aqadil            #+#    #+#             */
-/*   Updated: 2021/12/13 13:34:04 by aqadil           ###   ########.fr       */
+/*   Created: 2021/12/30 12:20:16 by aqadil            #+#    #+#             */
+/*   Updated: 2021/12/30 14:26:35 by aqadil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#ifndef CHECKER_H
+# define CHECKER_H
 
-void	build_stack(t_stack_a **head, int x)
-{
-	t_stack_a	*temp;
-	t_stack_a	*node;
+# include "../push_swap.h" 
 
-	temp = (*head);
-	node = ft_lstnew_a(x);
-	while (temp->next)
-	{
-		temp = temp->next;
-	}
-	temp->next = node;
-}
+int		execute_action(char *name, t_mem *mem);
+void	read_instructions(t_mem *mem);
+
+#endif

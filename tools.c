@@ -6,55 +6,60 @@
 /*   By: aqadil <aqadil@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 14:58:42 by aqadil            #+#    #+#             */
-/*   Updated: 2021/12/17 15:46:13 by aqadil           ###   ########.fr       */
+/*   Updated: 2021/12/31 14:49:38 by aqadil           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-// stack a
-t_stack_a	*ft_lstnew_a(int x)
+int	ft_isdigit(int c)
 {
-	t_stack_a	*node;
-	t_stack_a	*previous;
-	
-	previous = NULL;
-	node = malloc(sizeof(t_stack_a));
-	if (!node)
-		return (NULL);
-	node->x = x;
-	node->next = NULL;
-	return (node);
+	return (c >= '0' && c <= '9');
 }
 
-int	ft_atoi(const char *str)
+int	ft_atoi(char *str, t_mem *mem)
 {
-	int	i;
-	int	sign;
-	int	result;
+	int		ne;
+	long	nbr;
 
-	i = 0;
-	sign = 1;
-	result = 0;
-	while (str[i] == ' ' || str[i] == '\n' || str[i] == '\t' || str[i] == '\r'
-		|| str[i] == '\f' || str[i] == '\v')
-		i++;
-	if (str[i] == '-')
-		sign = -1;
-	if (str[i] == '-' || str[i] == '+')
-		i++;
-	while (str[i] && str[i] >= '0' && str[i] <= '9')
+	nbr = 0;
+	ne = 1;
+	while (*str == ' ' || *str == '\t' || *str == '\n'
+		|| *str == '\v' || *str == '\f' || *str == '\r')
+		++str;
+	while (*str == '+' || *str == '-')
 	{
-		result = (result * 10) + (str[i] - 48);
-		i++;
+		if (*str == '-')
+			ne *= -1;
+		++str;
 	}
-	return (result * sign);
+	--str;
+	while (++str && ft_isdigit(*str))
+	{
+		nbr = nbr * 10 + (*str - '0');
+		if ((ne == 1 && nbr > 0x7FFFFFFF) || (ne == -1 && nbr > 0x80000000))
+			exit_error(mem);
+	}
+	return ((int)(nbr * ne));
 }
 
-t_stack_a *first_element(t_stack_a **head)
+int	ft_abs(int a)
 {
-	t_stack_a	*first;
+	if (a < 0)
+		return (-a);
+	return (a);
+}
 
-	first = (*head);
-	return (first);
+int	ft_max(int a, int b)
+{
+	if (a > b)
+		return (a);
+	return (b);
+}
+
+int	ft_min(int a, int b)
+{
+	if (a > b)
+		return (b);
+	return (a);
 }

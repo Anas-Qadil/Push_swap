@@ -29,7 +29,7 @@ To build the programm there is only a few steps:
 First of all, you can download the repository through the following steps in any shell of your preference:
 ```
 git clone https://github.com/Anas-Qadil/Push_swap/
-cd push_swap_42
+cd push_swap
 make
 ```
 This commands will compile everything and a executable "push_swap" should be created.

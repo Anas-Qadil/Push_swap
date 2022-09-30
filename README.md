@@ -44,10 +44,3 @@ $ ./push_swap "10 30 60 42 80 99 -42"
 ```
 This project was structured to run with integers, with numbers within the range of -2147483648 to 2147483647.
 Also, even accepting a string of numbers, if you try to input a word or a letter, as 'a' or 'hello', it will not work, returning an error message.
-
-## Other Information
-
-- This project was made using C language, obeying all 42 norms;
-- The tests folder has several tests and lists to better understand the project.
-- There is also a visualizer (pyviz.py), it uses the operations that your program produces and present a graphic representation of this proccess. Keep in mind that you need to have installed python and the Tkinter lib;
-- There is also an script in perl to automate the list generation and execution of the program, created by a fellow cadetes in 42-SP (ps_tester.pl) - Please, check the notion produced;
